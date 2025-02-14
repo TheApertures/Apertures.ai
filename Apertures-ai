@@ -1,0 +1,10 @@
+/apertures-ai
+ ├── /public
+ ├── /src
+ │   ├── /components
+ │   ├── App.js
+ │   ├── main.jsx
+ ├── index.html
+ ├── package.json
+ ├── vite.config.js
+ ├── README.md
