@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/.well-known/a5o-keys.json",
+      "destination": "/api/keys"
+    }
+  ]
+}
