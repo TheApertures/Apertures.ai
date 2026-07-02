@@ -1,13 +1,23 @@
 'use strict';
 
-const { getKeyset, serializeKeyset } = require('../lib/keyset');
+const { buildKeyset, serializeKeyset } = require('../lib/keyset');
 
 module.exports = function handler(req, res) {
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.status(204).end();
+    return;
+  }
+
   if (req.method !== 'GET' && req.method !== 'HEAD') {
-    res.setHeader('Allow', 'GET, HEAD');
+    res.setHeader('Allow', 'GET, HEAD, OPTIONS');
     res.status(405).json({ error: 'method_not_allowed' });
     return;
   }
+
+  const keyset = buildKeyset();
 
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
@@ -20,5 +30,5 @@ module.exports = function handler(req, res) {
     return;
   }
 
-  res.status(200).send(serializeKeyset(getKeyset()));
+  res.status(200).send(serializeKeyset(keyset));
 };
